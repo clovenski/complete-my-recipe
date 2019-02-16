@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
+from completemyrecipe import views
+
+router = routers.DefaultRouter()
+router.register('recipes', views.RecipeViewSet)
+router.register('ingredients', views.IngredientViewSet)
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('admin/', admin.site.urls)
 ]
