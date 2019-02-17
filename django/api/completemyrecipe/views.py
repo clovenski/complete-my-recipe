@@ -9,9 +9,9 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filter_fields = ['name', 'cuisine']
+    filter_fields = ['name', 'num_ingreds']
     search_fields = ['ingred_list']
-    ordering_fields = ['cuisine', 'num_ingreds']
+    ordering_fields = ['num_ingreds']
 
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):

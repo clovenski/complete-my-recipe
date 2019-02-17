@@ -4,8 +4,8 @@ from .models import Recipe, Ingredient
 # Register your models here.
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_filter = ['cuisine', 'num_ingreds']
-    list_display = ['name', 'id', 'cuisine', 'num_ingreds']
+    list_filter = ['num_ingreds']
+    list_display = ['name', 'id', 'num_ingreds']
     search_fields = ['ingred_list']
 
 admin.site.register(Recipe, RecipeAdmin)
