@@ -13,9 +13,14 @@ Enter the spare ingredients you have in your pantry and receive a list of recipe
 ## Output
 - recipes to choose from with their respective remaining ingredients
 
-## Notes
+## To-Do (Chronological)
 
-features, input, output, etc. are subject to change
+- [ ] Set up the template of front-end according to [this](notes/Rough%20Layout.png)
+- [ ] Adjust back-end API accordingly to template
+- [ ] Find a way to populate database with appropriate data
+- [ ] Connect front-end to back-end
+- [ ] Set up API on [pythonanywhere](https://www.pythonanywhere.com/)
+- [ ] Create new to-do list for next feature
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
