@@ -1,3 +1,4 @@
 django/venv
+django/utils/*.json
 *.pyc
 *.sqlite3

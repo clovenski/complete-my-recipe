@@ -5,7 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
-class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
+class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -14,7 +14,7 @@ class RecipeViewSet(viewsets.ReadOnlyModelViewSet):
     ordering_fields = ['num_ingreds']
 
 
-class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
+class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
