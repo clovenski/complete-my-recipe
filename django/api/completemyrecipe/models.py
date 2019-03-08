@@ -4,8 +4,8 @@ from django.db import models
 
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
-    ingred_list = models.TextField(max_length=200)
-    instructions = models.TextField(max_length=1000)
+    ingred_list = models.TextField(max_length=1500)
+    instructions = models.TextField(max_length=2500)
     num_ingreds = models.PositiveSmallIntegerField()
 
     def __str__(self):

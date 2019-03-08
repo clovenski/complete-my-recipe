@@ -1,4 +1,5 @@
 import json
+import re
 import requests
 
 url = 'http://127.0.0.1:8000/recipes/'
@@ -14,7 +15,23 @@ def post_recipe(name, ingred_list, instructions, num_ingreds):
 
 with open('recipes_raw_nosource_ar.json', 'r') as read_file:
     data = json.load(read_file)
-    print(data["rmK12Uau.ntP510KeImX506H6Mr6jTu"]['title']) # this prints Slow Cooker Chicken and Dumplings
-    # for recipe in data.values():
-        # convert json format in dataset to format in post_recipe method
-        # then call post_recipe to post into database, assuming server is running
+    test_size = 5 # max number of recipes to post, remove to post all
+    recipes_posted = 0 # remove to post all
+    for recipe in data.values():
+        ingred_list = ''
+        num_ingreds = 0
+        try:
+            for ingred in recipe['ingredients']:
+                ingred = re.sub(r'ADVERTISEMENT', '', ingred)
+                if ingred == '':
+                    continue
+                ingred_list += ingred + '\n'
+                num_ingreds += 1
+            if ingred_list == '':
+                continue
+            post_recipe(recipe['title'], ingred_list, recipe['instructions'], num_ingreds)
+            recipes_posted += 1 # remove to post all
+            if recipes_posted == test_size: # remove to post all
+                break # remove to post all
+        except KeyError:
+            continue
