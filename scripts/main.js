@@ -1,11 +1,4 @@
-// implement buttons, drop down menus and such
+// implement home page functionality
 
-// example code for using API, assuming some data in database already
-// var request = new XMLHttpRequest();
-// request.open('GET', 'http://localhost:8000/recipes/', true);
-// request.onload = function() {
-//     var json = JSON.parse(request.responseText);
-//     console.log(json[0].name);
-// };
-
-// request.send(null);
+// example code to demonstrate adjusting search button link
+document.getElementById("search_link").href += "?ingredients=chicken+bread";

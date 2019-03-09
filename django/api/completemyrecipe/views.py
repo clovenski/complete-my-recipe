@@ -2,6 +2,8 @@ from .models import Recipe, Ingredient
 from .serializers import RecipeSerializer, IngredientSerializer
 from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet, CharFilter
+from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer, BrowsableAPIRenderer
+from rest_framework.response import Response
 
 # Create your views here.
 
@@ -27,6 +29,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_class = RecipeFilter
     ordering_fields = ['num_ingreds']
+
+    renderer_classes = [TemplateHTMLRenderer, JSONRenderer, BrowsableAPIRenderer]
+
+    def list(self, request, *args, **kwargs):
+        response = super(RecipeViewSet, self).list(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'html':
+            context = {'recipe_list': response.data}
+            response = Response(context, template_name='list_recipes.html')
+        return response
+
+    def retrieve(self, request, *args, **kwargs):
+        response = super(RecipeViewSet, self).retrieve(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'html':
+            context = {
+                'name': response.data['name'],
+                'num_ingreds': response.data['num_ingreds'],
+                'ingredients': response.data['ingred_list'],
+                'instructions': response.data['instructions']
+                }
+            response = Response(context, template_name='view_recipe.html')
+        return response
 
 
 class IngredientViewSet(viewsets.ModelViewSet):
