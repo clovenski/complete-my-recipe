@@ -9,4 +9,4 @@ class RecipeSerializer(serializers.HyperlinkedModelSerializer):
 class IngredientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ('name',)
+        fields = ('name', 'category',)
