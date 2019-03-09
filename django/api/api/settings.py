@@ -127,3 +127,7 @@ STATIC_URL = '/static/'
 # CORS
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# hash-ids
+
+HASHID_FIELD_SALT = os.environ['SALT_KEY']
