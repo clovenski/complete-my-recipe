@@ -21,7 +21,7 @@ class RecipeFilter(FilterSet):
 
     class Meta:
         model = Recipe
-        fields = ['name', 'ingredients']
+        fields = ['ingredients']
 
 class RecipeViewSet(viewsets.ModelViewSet):
     serializer_class = RecipeSerializer
@@ -47,7 +47,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 'num_ingreds': response.data['num_ingreds'],
                 'ingredients': response.data['ingred_list'],
                 'instructions': response.data['instructions']
-                }
+            }
             response = Response(context, template_name='view_recipe.html')
         return response
 

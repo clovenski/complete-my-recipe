@@ -13,14 +13,15 @@ Enter the spare ingredients you have in your pantry and receive a list of recipe
 ## Output
 - recipes to choose from with their respective remaining ingredients
 
-## To-Do (Chronological)
+## To-Do
 
-- [ ] Set up the template of front-end according to [this](notes/Rough%20Layout.png)
-- [ ] Adjust back-end API accordingly to template
-- [ ] Find a way to populate database with appropriate data
-- [ ] Connect front-end to back-end
-- [ ] Set up API on [pythonanywhere](https://www.pythonanywhere.com/)
-- [ ] Create new to-do list for next feature
+- [ ] Figure out how to extract key ingredient names from our dataset
+- [ ] Automate the posting of key ingredient names into database
+- [ ] Add some style and functionality to [index.html](index.html), [list_recipes.html](templates/list_recipes.html) and [view_recipes.html](templates/view_recipe.html)
+
+## Notes
+
+For frontend developers, refer to [here](notes/backend/) for usage of backend.
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 
