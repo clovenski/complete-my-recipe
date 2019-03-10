@@ -13,8 +13,8 @@ class RecipeFilter(FilterSet):
     def ingreds_contain(self, queryset, name, value):
         lookup = '__'.join([name, 'iregex'])
         ingreds = value.split()
-        temp = queryset.filter(**{lookup: ingreds[0]})
-        for ingred in ingreds[1:]:
+        temp = Recipe.objects.none()
+        for ingred in ingreds:
             temp = queryset.filter(**{lookup: ingred}).union(temp)
         queryset = temp
         return queryset
@@ -34,6 +34,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         response = super(RecipeViewSet, self).list(request, *args, **kwargs)
+        user_ingred = request.GET.get('ingredients', default='')
+        if user_ingred != '':
+            user_ingred = set(user_ingred.split('+'))
+            for recipe in response.data:
+                recipe_ingred = set(recipe['ingred_list'].split('\n')) # change once simplified ingred list field implemented
+                recipe['missing'] = ' '.join(str(i) for i in recipe_ingred.difference(user_ingred))
         if request.accepted_renderer.format == 'html':
             context = {'recipe_list': response.data}
             response = Response(context, template_name='list_recipes.html')
@@ -42,10 +48,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         response = super(RecipeViewSet, self).retrieve(request, *args, **kwargs)
         if request.accepted_renderer.format == 'html':
+            ingred_list = response.data['ingred_list'].split('\n')
             context = {
                 'name': response.data['name'],
                 'num_ingreds': response.data['num_ingreds'],
-                'ingredients': response.data['ingred_list'],
+                'ingredients': ingred_list,
                 'instructions': response.data['instructions']
             }
             response = Response(context, template_name='view_recipe.html')

@@ -5,7 +5,11 @@
   <body>
     <h2 id="name">{{ name }}</h2>
     <p id="num_ingreds">Number of ingredients: {{ num_ingreds }}</p>
-    <p id="ingredients">Ingredients: {{ ingredients }}</p>
+    <p id="ingredients">Ingredients: <br>
+      {% for ingred in ingredients %}
+      {{ ingred }}<br>
+      {% endfor %}
+    </p>
     <p id="instructions">Instructions: {{ instructions }}</p>
 
     <script src="../scripts/view_recipe.js"></script>

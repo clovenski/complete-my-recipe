@@ -5,7 +5,12 @@
   <body>
     <ul id="recipe_list">
       {% for recipe in recipe_list %}
-      <li><a href="/recipes/{{ recipe.id }}">{{ recipe.name }}</a></li>
+      <li>
+        <a href="/recipes/{{ recipe.id }}">{{ recipe.name }}</a>
+        {% if recipe.missing %}
+        - missing: {{ recipe.missing }}
+        {% endif %}
+      </li>
       {% endfor %}
     </ul>
 
