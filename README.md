@@ -24,6 +24,10 @@ Enter the spare ingredients you have in your pantry and receive a list of recipe
 
 For frontend developers, refer to [here](notes/backend/) for usage of backend.
 
+## SCRUM
+
+Link to SCRUM backlog [here](https://tree.taiga.io/project/sjmarrero-completemyrecipe-1/kanban)
+
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 ## Search and Result Features: 
