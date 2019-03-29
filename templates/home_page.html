@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+  {% load static %}
   <head>
     <meta charset="utf-8">
     <title>Default</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
   </head>
 
   <body>
@@ -52,8 +53,8 @@
     <br>
     <br>
     <button><h2>Save search</h2></button>
-    <button><a id="search_link" href="http://localhost:8000/recipes/"><h2>Find receipe</h2></a></button>
+    <button><a id="search_link" href="/data/recipes/"><h2>Find receipe</h2></a></button>
 
-    <script src="scripts/main.js"></script>
+    <script src="{% static 'scripts/main.js' %}"></script>
   </body>
 </html>

@@ -23,6 +23,7 @@ router.register('recipes', views.RecipeViewSet)
 router.register('ingredients', views.IngredientViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('data/', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('', views.home, name='home'),
 ]

@@ -4,8 +4,12 @@ from rest_framework import viewsets, filters
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet, CharFilter
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
+from django.shortcuts import render
 
 # Create your views here.
+
+def home(request):
+    return render(request, 'home_page.html')
 
 class RecipeFilter(FilterSet):
     ingredients = CharFilter(field_name='ingred_list', method='ingreds_contain')

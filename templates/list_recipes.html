@@ -1,4 +1,5 @@
 <html>
+  {% load static %}
   <head>
     <title>Complete My Recipe</title>
   </head>
@@ -6,7 +7,7 @@
     <ul id="recipe_list">
       {% for recipe in recipe_list %}
       <li>
-        <a href="/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}{% endif %}">{{ recipe.name }}</a>
+        <a href="/data/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}{% endif %}">{{ recipe.name }}</a>
         {% if recipe.missing %}
         - missing: {{ recipe.missing }}
         {% endif %}
@@ -14,6 +15,6 @@
       {% endfor %}
     </ul>
 
-    <script src="../scripts/list_recipes.js"></script>
+    <script src="{% static 'scripts/list_recipes.js' %}"></script>
   </body>
 </html>

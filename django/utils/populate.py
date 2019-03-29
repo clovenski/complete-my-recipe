@@ -5,7 +5,7 @@ import os
 
 USERNAME = os.environ['APP_USERNAME']
 PASSWORD = os.environ['APP_PASSWORD']
-POST_URL = 'http://127.0.0.1:8000/recipes/?format=json'
+POST_URL = 'http://127.0.0.1:8000/data/recipes/?format=json'
 
 def post_recipe(name, ingred_list, instructions, num_ingreds):
     data = {
