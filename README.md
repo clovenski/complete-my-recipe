@@ -18,7 +18,7 @@ Enter the spare ingredients you have in your pantry and receive a list of recipe
 - [ ] Figure out how to extract key ingredient names from our dataset
 - [ ] Automate the posting of key ingredient names into database
 - [ ] Integrate key ingredient names to a field in Recipe table as simplified ingredient list
-- [ ] Add some style and functionality to [index.html](index.html), [list_recipes.html](templates/list_recipes.html) and [view_recipes.html](templates/view_recipe.html)
+- [ ] Add some style and functionality to [home_page.html](/templates/home_page.html), [list_recipes.html](templates/list_recipes.html) and [view_recipes.html](templates/view_recipe.html)
 
 ## Notes
 
