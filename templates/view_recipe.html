@@ -12,6 +12,9 @@
     </p>
     <p id="instructions">Instructions: {{ instructions }}</p>
 
+    {% if search_params %}
+    <a href="/recipes/?ingredients={{ search_params }}">Return to list</a>
+    {% endif %}
     <script src="../scripts/view_recipe.js"></script>
   </body>
 </html>

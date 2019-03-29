@@ -135,3 +135,9 @@ CORS_ORIGIN_ALLOW_ALL = True
 # hash-ids
 
 HASHID_FIELD_SALT = os.environ['SALT_KEY']
+
+# permissions
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES' : ('completemyrecipe.permissions.ApplicationDefaultPermission',)
+}

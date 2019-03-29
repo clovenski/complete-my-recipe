@@ -1,8 +1,11 @@
 import json
 import re
 import requests
+import os
 
-url = 'http://127.0.0.1:8000/recipes/'
+USERNAME = os.environ['APP_USERNAME']
+PASSWORD = os.environ['APP_PASSWORD']
+POST_URL = 'http://127.0.0.1:8000/recipes/?format=json'
 
 def post_recipe(name, ingred_list, instructions, num_ingreds):
     data = {
@@ -11,7 +14,7 @@ def post_recipe(name, ingred_list, instructions, num_ingreds):
         'instructions': instructions,
         'num_ingreds': num_ingreds
     }
-    requests.post(url, json=data)
+    requests.post(POST_URL, json=data, auth=(USERNAME, PASSWORD))
 
 with open('recipes_raw_nosource_ar.json', 'r') as read_file:
     data = json.load(read_file)

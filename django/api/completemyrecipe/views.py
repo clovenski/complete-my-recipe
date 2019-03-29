@@ -34,14 +34,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         response = super(RecipeViewSet, self).list(request, *args, **kwargs)
-        user_ingred = request.GET.get('ingredients', default='')
-        if user_ingred != '':
-            user_ingred = set(user_ingred.split('+'))
+        ingred_param = request.GET.get('ingredients', default='')
+        if ingred_param != '':
             for recipe in response.data:
                 recipe_ingred = set(recipe['ingred_list'].split('\n')) # change once simplified ingred list field implemented
-                recipe['missing'] = ' '.join(str(i) for i in recipe_ingred.difference(user_ingred))
+                recipe['missing'] = ' '.join(str(i) for i in recipe_ingred.difference(ingred_param))
         if request.accepted_renderer.format == 'html':
             context = {'recipe_list': response.data}
+            if ingred_param != '':
+                context['search_params'] = ingred_param.replace(' ', '+')
             response = Response(context, template_name='list_recipes.html')
         return response
 
@@ -55,9 +56,23 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 'ingredients': ingred_list,
                 'instructions': response.data['instructions']
             }
+            if 'params' in request.GET:
+                context['search_params'] = request.GET.get('params').replace(' ', '+')
             response = Response(context, template_name='view_recipe.html')
         return response
 
+    def create(self, request, *args, **kwargs):
+        response = super(RecipeViewSet, self).create(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'html':
+            ingred_list = response.data['ingred_list'].split('\n')
+            context = {
+                'name': response.data['name'],
+                'num_ingreds': response.data['num_ingreds'],
+                'ingredients': ingred_list,
+                'instructions': response.data['instructions']
+            }
+            response = Response(context, template_name='view_recipe.html')
+        return response
 
 class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
