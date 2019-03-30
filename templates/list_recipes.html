@@ -8,9 +8,9 @@
     <ul id="recipe_list">
       {% for recipe in recipe_list %}
       <li>
-        <a href="/data/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}{% endif %}">{{ recipe.name }}</a>
+        <a href="/data/recipes/{{ recipe.id }}/{% if search_params %}?ingredients={{ search_params }}{% endif %}">{{ recipe.name }}</a>
         {% if recipe.missing %}
-        - missing: {{ recipe.missing }}
+        - missing: {{ recipe.missing }} ingredients
         {% endif %}
       </li>
       {% endfor %}
@@ -20,8 +20,8 @@
     <div class="pagination">
       <span class="pagination_links">
         {% if recipe_list.has_previous %}
-          <a href="?page=1">&laquo; first</a>
-          <a href="?page={{ recipe_list.previous_page_number }}">previous</a>
+          <a href="?page=1{% if search_params %}&ingredients={{ search_params }}{% endif %}">&laquo; first</a>
+          <a href="?page={{ recipe_list.previous_page_number }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -29,8 +29,8 @@
         </span>
 
         {% if recipe_list.has_next %}
-          <a href="?page={{ recipe_list.next_page_number }}">next</a>
-          <a href="?page={{ recipe_list.paginator.num_pages }}">last &raquo;</a>
+          <a href="?page={{ recipe_list.next_page_number }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">next</a>
+          <a href="?page={{ recipe_list.paginator.num_pages }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">last &raquo;</a>
         {% endif %}
       </span>
     </div>

@@ -1,4 +1,5 @@
 django/venv
 django/utils/*.json
+django/api/completemyrecipe/fixtures/
 *.pyc
 *.sqlite3

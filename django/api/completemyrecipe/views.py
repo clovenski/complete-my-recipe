@@ -13,14 +13,14 @@ def home(request):
     return render(request, 'home_page.html')
 
 class RecipeFilter(FilterSet):
-    ingredients = CharFilter(field_name='simple_ingred_list', method='ingreds_contain')
+    ingredients = CharFilter(field_name='ingred_list', method='ingreds_contain')
 
-    def ingreds_contain(self, queryset, name, value):
-        lookup = '__'.join([name, 'contains'])
+    def ingreds_contain(self, queryset, name, value): # improve this, as slow with database of over 39k recipes
+        lookup = '__'.join([name, 'iregex'])
         ingreds = value.split()
         temp = Recipe.objects.none()
-        for ingred_id in ingreds:
-            temp = queryset.filter(**{lookup: ingred_id}).union(temp)
+        for ingred in ingreds:
+            temp = queryset.filter(**{lookup: ingred}).union(temp)
         queryset = temp
         return queryset
 
@@ -42,11 +42,17 @@ class RecipeViewSet(viewsets.ModelViewSet):
         ingred_param = request.GET.get('ingredients', default='')
         if ingred_param != '':
             for recipe in response.data:
-                recipe_ingred = set(recipe['simple_ingred_list'].split('\n'))
-                missing_list = []
-                for missing_ingred_id in recipe_ingred.difference(ingred_param.split()):
-                    missing_list.append(str(Ingredient.objects.get(id=missing_ingred_id)))
-                recipe['missing'] = ', '.join(missing_list)
+                recipe_ingreds = recipe['ingred_list'].split('\n')
+                missing_count = 0
+                for ingred in recipe_ingreds:
+                    missing = True
+                    for user_ingred in ingred_param.split():
+                        if user_ingred in ingred:
+                            missing = False
+                            break
+                    if missing:
+                        missing_count += 1
+                recipe['missing'] = missing_count
         if request.accepted_renderer.format == 'html':
             context = {'recipe_list': response.data}
             if ingred_param != '':

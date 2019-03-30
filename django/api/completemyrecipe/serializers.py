@@ -7,7 +7,7 @@ class RecipeSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = ('id', 'name', 'ingred_list', 'simple_ingred_list', 'instructions', 'num_ingreds',)
+        fields = ('id', 'name', 'ingred_list', 'instructions', 'num_ingreds',)
 
 class IngredientSerializer(serializers.HyperlinkedModelSerializer):
     id = HashidSerializerCharField(source_field='completemyrecipe.Ingredient.id', read_only=True)
