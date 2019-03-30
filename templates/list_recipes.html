@@ -16,6 +16,26 @@
       {% endfor %}
     </ul>
 
+    {% if pagination %}
+    <div class="pagination">
+      <span class="pagination_links">
+        {% if recipe_list.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ recipe_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ recipe_list.number }} of {{ recipe_list.paginator.num_pages }}.
+        </span>
+
+        {% if recipe_list.has_next %}
+          <a href="?page={{ recipe_list.next_page_number }}">next</a>
+          <a href="?page={{ recipe_list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
+    {% endif %}
+
     <script src="{% static 'scripts/list_recipes.js' %}"></script>
   </body>
 </html>

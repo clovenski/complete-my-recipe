@@ -5,8 +5,9 @@ from django_filters.rest_framework import DjangoFilterBackend, FilterSet, CharFi
 from rest_framework.renderers import TemplateHTMLRenderer, JSONRenderer, BrowsableAPIRenderer
 from rest_framework.response import Response
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
-# Create your views here.
+PAGINATION_THRESH = 25
 
 def home(request):
     return render(request, 'home_page.html')
@@ -50,6 +51,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
             context = {'recipe_list': response.data}
             if ingred_param != '':
                 context['search_params'] = ingred_param.replace(' ', '+')
+            if len(response.data) > PAGINATION_THRESH:
+                page = request.GET.get('page')
+                paginator = Paginator(response.data, PAGINATION_THRESH).get_page(page)
+                context['recipe_list'] = paginator
+                context['pagination'] = True
             response = Response(context, template_name='list_recipes.html')
         return response
 
