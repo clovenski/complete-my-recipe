@@ -12,14 +12,14 @@ def home(request):
     return render(request, 'home_page.html')
 
 class RecipeFilter(FilterSet):
-    ingredients = CharFilter(field_name='ingred_list', method='ingreds_contain')
+    ingredients = CharFilter(field_name='simple_ingred_list', method='ingreds_contain')
 
     def ingreds_contain(self, queryset, name, value):
-        lookup = '__'.join([name, 'iregex'])
+        lookup = '__'.join([name, 'contains'])
         ingreds = value.split()
         temp = Recipe.objects.none()
-        for ingred in ingreds:
-            temp = queryset.filter(**{lookup: ingred}).union(temp)
+        for ingred_id in ingreds:
+            temp = queryset.filter(**{lookup: ingred_id}).union(temp)
         queryset = temp
         return queryset
 
@@ -41,8 +41,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
         ingred_param = request.GET.get('ingredients', default='')
         if ingred_param != '':
             for recipe in response.data:
-                recipe_ingred = set(recipe['ingred_list'].split('\n')) # change once simplified ingred list field implemented
-                recipe['missing'] = ' '.join(str(i) for i in recipe_ingred.difference(ingred_param))
+                recipe_ingred = set(recipe['simple_ingred_list'].split('\n'))
+                missing_list = []
+                for missing_ingred_id in recipe_ingred.difference(ingred_param.split()):
+                    missing_list.append(str(Ingredient.objects.get(id=missing_ingred_id)))
+                recipe['missing'] = ', '.join(missing_list)
         if request.accepted_renderer.format == 'html':
             context = {'recipe_list': response.data}
             if ingred_param != '':
@@ -79,8 +82,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return response
 
 class IngredientViewSet(viewsets.ModelViewSet):
-    queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
+    queryset = Ingredient.objects.all()
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filter_fields = ['name', 'category']
     search_fields = ['name']
