@@ -17,13 +17,12 @@ function searchIngredient(name) {
                         document.getElementById("suggestions").innerHTML = "No matches.";
                     }
                     for (var i = 0; i < response.length; i++) {
-                        var ingredientID = response[i]["id"];
-                        if (queryParams.has(ingredientID)) {
-                            console.log(ingredientID);
+                        var ingredient = response[i]["name"];
+                        if (queryParams.has(ingredient)) {
                             continue;
                         }
                         var suggestion = document.createElement("button");
-                        suggestion.id = ingredientID;
+                        suggestion.id = ingredient;
                         suggestion.setAttribute("onclick", "addIngredient(this.id)");
                         suggestion.innerHTML = response[i]["name"];
                         document.getElementById("suggestions").appendChild(suggestion);
@@ -36,18 +35,18 @@ function searchIngredient(name) {
     }
 }
 
-function addIngredient(id) {
-    queryParams.add(id);
-    var ingredient = document.getElementById(id);
+function addIngredient(name) {
+    queryParams.add(name);
+    var ingredient = document.getElementById(name);
     document.getElementById("suggestions").removeChild(ingredient);
     document.getElementById("userIngredients").appendChild(ingredient);
     ingredient.setAttribute("onclick", "removeIngredient(this.id)");
-    queryParams.add(id);
+    queryParams.add(name);
 }
 
-function removeIngredient(id) {
-    queryParams.delete(id);
-    var ingredient = document.getElementById(id);
+function removeIngredient(name) {
+    queryParams.delete(name);
+    var ingredient = document.getElementById(name);
     document.getElementById("userIngredients").removeChild(ingredient);
 }
 

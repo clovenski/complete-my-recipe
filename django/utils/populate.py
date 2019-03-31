@@ -41,5 +41,50 @@ def generate_recipes_json():
                     continue
         json.dump(recipes_json, out_file, indent=2)
 
+def generate_ingreds_json():
+    if not os.path.exists('../api/completemyrecipe/fixtures/'):
+        os.mkdir('../api/completemyrecipe/fixtures/')
+    with open('../api/completemyrecipe/fixtures/ingreds.json', 'w') as out_file:
+        ingreds_json = []
+        ingred_num = 1
+        # example ingredient data, used for testing
+        ingreds_json.append({
+            'model': 'completemyrecipe.Ingredient',
+            'pk': ingred_num,
+            'fields': {
+                'name': 'chicken',
+                'category': 'P'
+            }
+        })
+        ingred_num += 1
+        ingreds_json.append({
+            'model': 'completemyrecipe.Ingredient',
+            'pk': ingred_num,
+            'fields': {
+                'name': 'beef',
+                'category': 'P'
+            }
+        })
+        ingred_num += 1
+        ingreds_json.append({
+            'model': 'completemyrecipe.Ingredient',
+            'pk': ingred_num,
+            'fields': {
+                'name': 'rice',
+                'category': 'G'
+            }
+        })
+        ingred_num += 1
+        ingreds_json.append({
+            'model': 'completemyrecipe.Ingredient',
+            'pk': ingred_num,
+            'fields': {
+                'name': 'apple',
+                'category': 'F'
+            }
+        })
+        json.dump(ingreds_json, out_file, indent=2)
+
 if __name__ == '__main__':
     generate_recipes_json()
+    generate_ingreds_json()
