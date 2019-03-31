@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from django.shortcuts import render
 from django.core.paginator import Paginator
 
-PAGINATION_THRESH = 25
+PAGINATION_THRESH = 50
 
 def home(request):
     return render(request, 'home_page.html')
@@ -22,7 +22,7 @@ class RecipeFilter(FilterSet):
         for ingred in ingreds:
             temp = queryset.filter(**{lookup: ingred}).union(temp)
         queryset = temp
-        return queryset
+        return queryset.order_by('num_ingreds')
 
     class Meta:
         model = Recipe
@@ -41,7 +41,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
         response = super(RecipeViewSet, self).list(request, *args, **kwargs)
         ingred_param = request.GET.get('ingredients', default='')
         if ingred_param != '':
-            for recipe in response.data:
+            indices_to_del = []
+            for i, recipe in enumerate(response.data):
                 recipe_ingreds = recipe['ingred_list'].split('\n')
                 missing_count = 0
                 for ingred in recipe_ingreds:
@@ -52,7 +53,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
                             break
                     if missing:
                         missing_count += 1
-                recipe['missing'] = missing_count
+                if missing_count > 5:
+                    indices_to_del.append(i)
+                else:
+                    recipe['missing'] = missing_count
+            indices_to_del.reverse()
+            for i in indices_to_del:
+                del response.data[i]
         if request.accepted_renderer.format == 'html':
             context = {'recipe_list': response.data}
             if ingred_param != '':

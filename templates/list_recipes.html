@@ -8,7 +8,7 @@
     <ul id="recipe_list">
       {% for recipe in recipe_list %}
       <li>
-        <a href="/data/recipes/{{ recipe.id }}/{% if search_params %}?ingredients={{ search_params }}{% endif %}">{{ recipe.name }}</a>
+        <a href="/data/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}{% endif %}">{{ recipe.name }}</a>
         {% if recipe.missing %}
         - missing: {{ recipe.missing }} ingredients
         {% endif %}

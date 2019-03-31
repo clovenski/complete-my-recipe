@@ -1,6 +1,5 @@
 import json
 import re
-import requests
 import os
 
 def generate_recipes_json():
