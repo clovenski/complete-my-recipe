@@ -20,6 +20,7 @@ class RecipeFilter(FilterSet):
         ingreds = value.split()
         temp = Recipe.objects.none()
         for ingred in ingreds:
+            ingred = ' ' + ingred + ' '
             temp = queryset.filter(**{lookup: ingred}).union(temp)
         queryset = temp
         return queryset.order_by('num_ingreds')

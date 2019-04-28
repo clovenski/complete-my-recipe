@@ -38,6 +38,7 @@ function searchIngredient(name) {
 
 function addIngredient(name) {
     queryParams.add(name);
+    document.getElementById("searchButton").disabled = false;
     var ingredient = document.getElementById(name);
     document.getElementById("suggestions").removeChild(ingredient);
     document.getElementById("userIngredients").appendChild(ingredient);
@@ -48,24 +49,27 @@ function addIngredient(name) {
 
 function removeIngredient(name) {
     queryParams.delete(name);
+    if (queryParams.size == 0) {
+        document.getElementById("searchButton").disabled = true;
+    }
     var ingredient = document.getElementById(name);
     document.getElementById("userIngredients").removeChild(ingredient);
 }
 
 function executeSearch() {
-    var link = "/data/recipes/";
-    var missing = document.getElementById("tolerance").value;
-    if (missing != "") {
-        link += "?tolerance=" + missing;
-    } else {
-        link += "?tolerance=5";
-    }
     if (queryParams.size > 0) {
+        var link = "/data/recipes/";
+        var missing = document.getElementById("tolerance").value;
+        if (missing != "") {
+            link += "?tolerance=" + missing;
+        } else {
+            link += "?tolerance=5";
+        }
         link += "&ingredients=";
         queryParams.forEach(function(id) {
             link += id + "+";
         });
         link = link.substring(0, link.length - 1);
+        window.location = link;
     }
-    window.location = link;
 }

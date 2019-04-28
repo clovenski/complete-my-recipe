@@ -9,15 +9,19 @@
 {% block content %}
   <table>
     <tr>
-      {% if recipe_list.0.missing %}
+      {% if search_params %}
         <th>Missing Ingredients</th>
       {% endif %}
       <th>Recipe</th>
     </tr>
     {% for recipe in recipe_list %}
     <tr>
-      {% if recipe.missing %}
-        <td>{{ recipe.missing }}</td>
+      {% if search_params %}
+        {% if recipe.missing %}
+          <td>{{ recipe.missing }}</td>
+        {% else %}
+          <td>0</td>
+        {% endif %}
       {% endif %}
       <td style="text-align:left"><a class="recipe" href="/data/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}&tol={{ tolerance }}{% endif %}">{{ recipe.name }}</a></td>
     </tr>
