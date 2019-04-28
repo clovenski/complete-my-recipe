@@ -17,7 +17,7 @@ Enter the spare ingredients you have in your pantry and receive a list of recipe
 
 - [ ] Figure out how to extract key ingredient names from our dataset
 - [ ] Automate the posting of key ingredient names into database
-- [ ] Get settings ready for deployment
+- [ ] Deploy to pythonanywhere.com
 
 ## Notes
 
