@@ -6,13 +6,15 @@
   </head>
   <body>
     <h2 id="name">{{ name }}</h2>
-    <p id="num_ingreds">Number of ingredients: {{ num_ingreds }}</p>
-    <p id="ingredients">Ingredients: <br>
-      {% for ingred in ingredients %}
-        {{ ingred }}<br>
-      {% endfor %}
+    <p id="num_ingreds"><u>Number of ingredients:</u> {{ num_ingreds }}</p>
+    <p id="ingredients"><u>Ingredients:</u>
+      <div id="ingred_list">
+        {% for ingred in ingredients %}
+          {{ ingred }}<br>
+        {% endfor %}
+      </div>
     </p>
-    <p id="instructions">Instructions: {{ instructions }}</p>
+    <p id="instructions"><u>Instructions:</u><div>{{ instructions }}</div></p>
 
     {% if search_params %}
     <a href="/data/recipes/?ingredients={{ search_params }}">Return to list</a>

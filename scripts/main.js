@@ -23,6 +23,7 @@ function searchIngredient(name) {
                         }
                         var suggestion = document.createElement("button");
                         suggestion.id = ingredient;
+                        suggestion.setAttribute("class", "suggestion");
                         suggestion.setAttribute("onclick", "addIngredient(this.id)");
                         suggestion.innerHTML = response[i]["name"];
                         document.getElementById("suggestions").appendChild(suggestion);
@@ -41,6 +42,7 @@ function addIngredient(name) {
     document.getElementById("suggestions").removeChild(ingredient);
     document.getElementById("userIngredients").appendChild(ingredient);
     ingredient.setAttribute("onclick", "removeIngredient(this.id)");
+    ingredient.setAttribute("class", "userIngredient");
     queryParams.add(name);
 }
 
