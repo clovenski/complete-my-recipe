@@ -28,8 +28,8 @@
   <div class="pagination">
     <span class="pagination_links">
       {% if recipe_list.has_previous %}
-        <a class="paginationlink" href="?page=1{% if search_params %}&ingredients={{ search_params }}{% endif %}">&laquo; first</a>
-        <a class="paginationlink" href="?page={{ recipe_list.previous_page_number }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">previous</a>
+        <a class="paginationlink" href="?page=1&tolerance={{ tolerance }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">&laquo; first</a>
+        <a class="paginationlink" href="?page={{ recipe_list.previous_page_number }}&tolerance={{ tolerance }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">previous</a>
       {% endif %}
 
       <span class="current">
@@ -37,8 +37,8 @@
       </span>
 
       {% if recipe_list.has_next %}
-        <a class="paginationlink" href="?page={{ recipe_list.next_page_number }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">next</a>
-        <a class="paginationlink" href="?page={{ recipe_list.paginator.num_pages }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">last &raquo;</a>
+        <a class="paginationlink" href="?page={{ recipe_list.next_page_number }}&tolerance={{ tolerance }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">next</a>
+        <a class="paginationlink" href="?page={{ recipe_list.paginator.num_pages }}&tolerance={{ tolerance }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">last &raquo;</a>
       {% endif %}
     </span>
   </div>

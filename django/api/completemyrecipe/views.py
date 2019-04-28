@@ -40,7 +40,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         response = super(RecipeViewSet, self).list(request, *args, **kwargs)
         ingred_param = request.GET.get('ingredients', default='')
-        max_missing = request.GET.get('missing', default=5)
+        max_missing = request.GET.get('tolerance', default=5)
         try:
             max_missing = int(max_missing)
         except ValueError:
@@ -66,7 +66,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
             for i in indices_to_del:
                 del response.data[i]
         if request.accepted_renderer.format == 'html':
-            context = {'recipe_list': response.data}
+            context = {
+                'recipe_list': response.data,
+                'tolerance': max_missing
+            }
             if ingred_param != '':
                 context['search_params'] = ingred_param.replace(' ', '+')
             if len(response.data) > PAGINATION_THRESH:
