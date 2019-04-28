@@ -90,6 +90,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 'ingredients': ingred_list,
                 'instructions': response.data['instructions']
             }
+            if 'tol' in request.GET:
+                context['tolerance'] = request.GET.get('tol')
             if 'params' in request.GET:
                 context['search_params'] = request.GET.get('params').replace(' ', '+')
             response = Response(context, template_name='view_recipe.html')

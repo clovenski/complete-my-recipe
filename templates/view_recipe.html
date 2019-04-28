@@ -20,9 +20,9 @@
 
   <div id="links">
     {% if search_params %}
-      <a class="link" href="/data/recipes/?ingredients={{ search_params }}">Return to list</a>
+      <a class="link" href="/data/recipes/?tolerance={{ tolerance }}&ingredients={{ search_params }}">Return to list</a>
     {% else %}
-      <a class="link" href="/data/recipes/">Return to list</a>
+      <a class="link" href="/data/recipes/?tolerance={{ tolerance }}">Return to list</a>
     {% endif %}
     <a class="link" href="{% url 'home' %}">Return to home</a>
   </div>

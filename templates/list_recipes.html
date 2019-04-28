@@ -19,7 +19,7 @@
       {% if recipe.missing %}
         <td>{{ recipe.missing }}</td>
       {% endif %}
-      <td style="text-align:left"><a class="recipe" href="/data/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}{% endif %}">{{ recipe.name }}</a></td>
+      <td style="text-align:left"><a class="recipe" href="/data/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}&tol={{ tolerance }}{% endif %}">{{ recipe.name }}</a></td>
     </tr>
     {% endfor %}
   </table>
