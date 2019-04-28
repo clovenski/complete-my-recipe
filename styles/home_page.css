@@ -1,0 +1,19 @@
+body {
+    text-align: center;
+}
+
+#userlist {
+    padding: 20px;
+}
+
+#search {
+    padding: 15px;
+}
+
+.suggestion:hover {
+    color: green;
+}
+
+.userIngredient:hover {
+    color: red;
+}

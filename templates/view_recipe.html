@@ -1,28 +1,31 @@
-<html>
-  {% load static %}
-  <head>
-    <title>Complete My Recipe</title>
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-  </head>
-  <body>
-    <h2 id="name">{{ name }}</h2>
-    <p id="num_ingreds"><u>Number of ingredients:</u> {{ num_ingreds }}</p>
-    <p id="ingredients"><u>Ingredients:</u>
-      <div id="ingred_list">
-        {% for ingred in ingredients %}
-          {{ ingred }}<br>
-        {% endfor %}
-      </div>
-    </p>
-    <p id="instructions"><u>Instructions:</u><div>{{ instructions }}</div></p>
+{% extends 'base.html' %}
 
+{% load static %}
+
+{% block style %}
+  <link rel="stylesheet" href="{% static 'styles/view_recipe.css' %}">
+{% endblock style %}
+
+{% block content %}
+  <span><b id="name">{{ name }}</b></span>
+  <p id="num_ingreds"><u>Number of ingredients:</u> {{ num_ingreds }}</p>
+  <p id="ingredients"><u>Ingredients:</u>
+    <div id="ingred_list">
+      {% for ingred in ingredients %}
+        {{ ingred }}<br>
+      {% endfor %}
+    </div>
+  </p>
+  <p id="instructions"><u>Instructions:</u><div>{{ instructions }}</div></p>
+
+  <div id="links">
     {% if search_params %}
-    <a href="/data/recipes/?ingredients={{ search_params }}">Return to list</a>
+      <a class="link" href="/data/recipes/?ingredients={{ search_params }}">Return to list</a>
     {% else %}
-    <a href="/data/recipes/">Return to list</a>
+      <a class="link" href="/data/recipes/">Return to list</a>
     {% endif %}
-    <br>
-    <a href="{% url 'home' %}">Return to home</a>
-    <script src="{% static 'scripts/view_recipe.js' %}"></script>
-  </body>
-</html>
+    <a class="link" href="{% url 'home' %}">Return to home</a>
+  </div>
+
+  <script src="{% static 'scripts/view_recipe.js' %}"></script>
+{% endblock content %}

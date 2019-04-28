@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  {% load static %}
+  <head>
+    <meta charset="utf-8">
+    <title>Complete My Recipe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    {% block style %}
+    {% endblock style %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+  </head>
+
+  <body>
+    <div id="header">
+      <a href="/" style="text-decoration:none;color:black"><h1><span style="background-color:lightblue">Complete My Recipe</span></h1></a>
+      <span>
+        by: Joel Tengco, Steven Marrero, Albert Hwuang, Richard Houth <br>
+        <a href="https://github.com/clovenski/complete-my-recipe">GitHub</a>
+      </span>
+    </div>
+    {% block content %}
+    {% endblock content %}
+  </body>
+</html>

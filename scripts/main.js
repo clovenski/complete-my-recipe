@@ -54,8 +54,14 @@ function removeIngredient(name) {
 
 function executeSearch() {
     var link = "/data/recipes/";
+    var missing = document.getElementById("missing").value;
+    if (missing != "") {
+        link += "?missing=" + missing;
+    } else {
+        link += "?missing=5";
+    }
     if (queryParams.size > 0) {
-        link += "?ingredients=";
+        link += "&ingredients=";
         queryParams.forEach(function(id) {
             link += id + "+";
         });

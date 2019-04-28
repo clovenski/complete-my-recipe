@@ -40,6 +40,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         response = super(RecipeViewSet, self).list(request, *args, **kwargs)
         ingred_param = request.GET.get('ingredients', default='')
+        max_missing = request.GET.get('missing', default=5)
+        try:
+            max_missing = int(max_missing)
+        except ValueError:
+            max_missing = 5
         if ingred_param != '':
             indices_to_del = []
             for i, recipe in enumerate(response.data):
@@ -53,7 +58,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                             break
                     if missing:
                         missing_count += 1
-                if missing_count > 5:
+                if missing_count > max_missing:
                     indices_to_del.append(i)
                 else:
                     recipe['missing'] = missing_count

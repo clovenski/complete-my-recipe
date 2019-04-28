@@ -1,41 +1,48 @@
-<html>
-  {% load static %}
-  <head>
-    <title>Complete My Recipe</title>
-    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-  </head>
-  <body>
-    <ul id="recipe_list">
-      {% for recipe in recipe_list %}
-      <li>
-        <a href="/data/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}{% endif %}">{{ recipe.name }}</a>
-        {% if recipe.missing %}
-        - missing: {{ recipe.missing }} ingredients
-        {% endif %}
-      </li>
-      {% endfor %}
-    </ul>
+{% extends 'base.html' %}
 
-    {% if pagination %}
-    <div class="pagination">
-      <span class="pagination_links">
-        {% if recipe_list.has_previous %}
-          <a href="?page=1{% if search_params %}&ingredients={{ search_params }}{% endif %}">&laquo; first</a>
-          <a href="?page={{ recipe_list.previous_page_number }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">previous</a>
-        {% endif %}
+{% load static %}
 
-        <span class="current">
-          Page {{ recipe_list.number }} of {{ recipe_list.paginator.num_pages }}.
-        </span>
+{% block style %}
+  <link rel="stylesheet" href="{% static 'styles/list_recipes.css' %}">
+{% endblock style %}
 
-        {% if recipe_list.has_next %}
-          <a href="?page={{ recipe_list.next_page_number }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">next</a>
-          <a href="?page={{ recipe_list.paginator.num_pages }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">last &raquo;</a>
-        {% endif %}
+{% block content %}
+  <table>
+    <tr>
+      {% if recipe_list.0.missing %}
+        <th>Missing Ingredients</th>
+      {% endif %}
+      <th>Recipe</th>
+    </tr>
+    {% for recipe in recipe_list %}
+    <tr>
+      {% if recipe.missing %}
+        <td>{{ recipe.missing }}</td>
+      {% endif %}
+      <td style="text-align:left"><a class="recipe" href="/data/recipes/{{ recipe.id }}/{% if search_params %}?params={{ search_params }}{% endif %}">{{ recipe.name }}</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% if pagination %}
+  <div class="pagination">
+    <span class="pagination_links">
+      {% if recipe_list.has_previous %}
+        <a class="paginationlink" href="?page=1{% if search_params %}&ingredients={{ search_params }}{% endif %}">&laquo; first</a>
+        <a class="paginationlink" href="?page={{ recipe_list.previous_page_number }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ recipe_list.number }} of {{ recipe_list.paginator.num_pages }}.
       </span>
-    </div>
-    {% endif %}
 
-    <script src="{% static 'scripts/list_recipes.js' %}"></script>
-  </body>
-</html>
+      {% if recipe_list.has_next %}
+        <a class="paginationlink" href="?page={{ recipe_list.next_page_number }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">next</a>
+        <a class="paginationlink" href="?page={{ recipe_list.paginator.num_pages }}{% if search_params %}&ingredients={{ search_params }}{% endif %}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+  {% endif %}
+
+  <script src="{% static 'scripts/list_recipes.js' %}"></script>
+{% endblock content %}

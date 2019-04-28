@@ -1,24 +1,10 @@
 #header {
     font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    padding-bottom: 20px;
 }
 
 body {
-    text-align: center;
+    background-color: lightgray;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-#userlist {
-    padding: 20px;
-}
-
-#search {
-    padding: 15px;
-}
-
-.suggestion:hover {
-    color: green;
-}
-
-.userIngredient:hover {
-    color: red;
 }
