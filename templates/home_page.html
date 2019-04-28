@@ -11,6 +11,9 @@
     Your ingredients: <span id="userIngredients"></span><br>
   </div>
   <button id="searchButton" onclick="executeSearch()" disabled>Find Recipe</button>
+  <div id="input">
+    Enter your ingredient and press enter: <input id="ingredinput" type="text" onkeypress="enterIngred(event, this.value)">
+  </div>
   <div id="search">
     <form>Search ingredient: <input type="text" onkeyup="searchIngredient(this.value)" placeholder="name"></form>
     <span id="suggestions">Suggestions pop up here.</span>

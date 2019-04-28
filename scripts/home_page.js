@@ -44,7 +44,6 @@ function addIngredient(name) {
     document.getElementById("userIngredients").appendChild(ingredient);
     ingredient.setAttribute("onclick", "removeIngredient(this.id)");
     ingredient.setAttribute("class", "userIngredient");
-    queryParams.add(name);
 }
 
 function removeIngredient(name) {
@@ -54,6 +53,21 @@ function removeIngredient(name) {
     }
     var ingredient = document.getElementById(name);
     document.getElementById("userIngredients").removeChild(ingredient);
+}
+
+function enterIngred(e, val) {
+    var keycode = (e.keycode ? e.keycode : e.which);
+    if (keycode == "13" && val != "") {
+        var ingred = document.createElement("button");
+        ingred.id = val;
+        ingred.innerHTML = val;
+        queryParams.add(ingred.id);
+        document.getElementById("searchButton").disabled = false;
+        document.getElementById("userIngredients").appendChild(ingred);
+        ingred.setAttribute("onclick", "removeIngredient(this.id)");
+        ingred.setAttribute("class", "userIngredient");
+        document.getElementById("ingredinput").value = "";
+    }
 }
 
 function executeSearch() {
@@ -67,7 +81,7 @@ function executeSearch() {
         }
         link += "&ingredients=";
         queryParams.forEach(function(id) {
-            link += id + "+";
+            link += id.replace(/ /g, '_') + "+";
         });
         link = link.substring(0, link.length - 1);
         window.location = link;

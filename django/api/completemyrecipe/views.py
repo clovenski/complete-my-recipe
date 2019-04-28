@@ -52,6 +52,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 recipe_ingreds = recipe['ingred_list'].split('\n')
                 missing_count = 0
                 for ingred in recipe_ingreds:
+                    ingred = ingred.replace('_', ' ')
                     missing = True
                     for user_ingred in ingred_param.split():
                         if user_ingred in ingred:
