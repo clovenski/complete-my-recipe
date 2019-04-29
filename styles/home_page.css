@@ -10,9 +10,9 @@ body {
     padding: 10px;
 }
 
-#search {
+/* #search {
     padding: 15px;
-}
+} */
 
 .suggestion:hover {
     color: green;
