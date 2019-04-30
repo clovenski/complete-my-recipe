@@ -77,7 +77,7 @@ function executeSearch() {
         if (missing != "") {
             link += "?tolerance=" + missing;
         } else {
-            link += "?tolerance=5";
+            link += "?tolerance=0";
         }
         link += "&ingredients=";
         queryParams.forEach(function(id) {

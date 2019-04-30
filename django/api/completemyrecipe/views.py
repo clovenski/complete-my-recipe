@@ -7,8 +7,6 @@ from rest_framework.response import Response
 from django.shortcuts import render
 from django.core.paginator import Paginator
 
-PAGINATION_THRESH = 50
-
 def home(request):
     return render(request, 'home_page.html')
 
@@ -16,11 +14,18 @@ class RecipeFilter(FilterSet):
     ingredients = CharFilter(field_name='ingred_list', method='ingreds_contain')
 
     def ingreds_contain(self, queryset, name, value): # improve this, as slow with database of over 39k recipes
+        num_user_ingreds = len(self.request.GET.get('ingredients').split())
+        max_missing = self.request.GET.get('tolerance', default=0)
+        try:
+            max_missing = int(max_missing)
+        except ValueError:
+            max_missing = 0
+        queryset = queryset.exclude(num_ingreds__gt=num_user_ingreds+max_missing)
         lookup = '__'.join([name, 'iregex'])
         ingreds = value.split()
         temp = Recipe.objects.none()
         for ingred in ingreds:
-            ingred = ' ' + ingred + ' '
+            ingred = ' ' + ingred.replace('_', ' ') + ' '
             temp = queryset.filter(**{lookup: ingred}).union(temp)
         queryset = temp
         return queryset.order_by('num_ingreds')
@@ -30,6 +35,7 @@ class RecipeFilter(FilterSet):
         fields = ['ingredients']
 
 class RecipeViewSet(viewsets.ModelViewSet):
+    PAGINATION_THRESH = 50
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
@@ -41,20 +47,20 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         response = super(RecipeViewSet, self).list(request, *args, **kwargs)
         ingred_param = request.GET.get('ingredients', default='')
-        max_missing = request.GET.get('tolerance', default=5)
+        max_missing = request.GET.get('tolerance', default=0)
         try:
             max_missing = int(max_missing)
         except ValueError:
-            max_missing = 5
+            max_missing = 0
         if ingred_param != '':
             indices_to_del = []
             for i, recipe in enumerate(response.data):
                 recipe_ingreds = recipe['ingred_list'].split('\n')
                 missing_count = 0
                 for ingred in recipe_ingreds:
-                    ingred = ingred.replace('_', ' ')
                     missing = True
                     for user_ingred in ingred_param.split():
+                        user_ingred = user_ingred.replace('_', ' ')
                         if user_ingred in ingred:
                             missing = False
                             break
@@ -74,9 +80,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
             }
             if ingred_param != '':
                 context['search_params'] = ingred_param.replace(' ', '+')
-            if len(response.data) > PAGINATION_THRESH:
+            if len(response.data) > self.PAGINATION_THRESH:
                 page = request.GET.get('page')
-                paginator = Paginator(response.data, PAGINATION_THRESH).get_page(page)
+                paginator = Paginator(response.data, self.PAGINATION_THRESH).get_page(page)
                 context['recipe_list'] = paginator
                 context['pagination'] = True
             response = Response(context, template_name='list_recipes.html')
