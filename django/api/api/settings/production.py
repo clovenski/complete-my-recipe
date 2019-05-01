@@ -13,3 +13,5 @@ CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
 STATIC_ROOT = '/home/completemyrecipe/complete-my-recipe/'
+
+TEMPLATES[0]['DIRS'].append(os.path.join(PROJECT_DIR, 'static/'))

@@ -55,9 +55,7 @@ ROOT_URLCONF = 'api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates/'),
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,7 +121,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    PROJECT_DIR,
+    os.path.join(PROJECT_DIR, 'icon/'),
+    os.path.join(PROJECT_DIR, 'scripts/'),
+    os.path.join(PROJECT_DIR, 'styles/'),
+    os.path.join(PROJECT_DIR, 'templates/'),
 ]
 
 # hash-ids

@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'styles/view_recipe.css' %}">
+  <link rel="stylesheet" href="{% static 'view_recipe.css' %}">
 {% endblock style %}
 
 {% block content %}
@@ -27,5 +27,5 @@
     <a class="link" href="{% url 'home' %}">Return to home</a>
   </div>
 
-  <script src="{% static 'scripts/view_recipe.js' %}"></script>
+  <script src="{% static 'view_recipe.js' %}"></script>
 {% endblock content %}

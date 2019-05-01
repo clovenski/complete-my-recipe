@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block style %}
-  <link rel="stylesheet" href="{% static 'styles/home_page.css' %}">
+  <link rel="stylesheet" href="{% static 'home_page.css' %}">
 {% endblock style %}
 
 {% block content %}
@@ -26,5 +26,5 @@
     Max number of missing ingredients: <input id="tolerance" type="text" placeholder="0">
   </div>
   <button id="searchButton" onclick="executeSearch()" disabled>Find Recipe</button>
-  <script src="{% static 'scripts/home_page.js' %}"></script>
+  <script src="{% static 'home_page.js' %}"></script>
 {% endblock content %}
