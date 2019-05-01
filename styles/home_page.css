@@ -21,3 +21,16 @@ body {
 .userIngredient:hover {
     color: red;
 }
+
+#searchButton {
+    background-color: lightblue;
+    border: 1px solid black;
+    padding: 15px;
+    margin: 10px;
+    font-size: 16px;
+}
+
+#searchButton:enabled:hover {
+    background-color: lightskyblue;
+    cursor: pointer;
+}

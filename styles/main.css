@@ -8,3 +8,20 @@ body {
     background-color: lightgray;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+
+#homeicon {
+    margin: 20px;
+}
+
+#homeicon a{
+    background-color: lightblue;
+    font-size: 2em;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    text-decoration: none;
+}
+
+#homeicon a:hover {
+    background-color: lightskyblue;
+}

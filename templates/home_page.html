@@ -7,17 +7,24 @@
 {% endblock style %}
 
 {% block content %}
+  <div id="description">
+    <p>Enter food ingredients you currently have to find possible recipes you can make.<br>
+      You can then specify if you want recipes with missing ingredients to also be returned.
+    </p>
+  </div>
   <div id="userlist">
     Your ingredients: <span id="userIngredients"></span><br>
   </div>
-  <button id="searchButton" onclick="executeSearch()" disabled>Find Recipe</button>
   <div id="input">
-    Enter your ingredient and press enter: <input id="ingredinput" type="text" onkeypress="enterIngred(event, this.value)">
+    Enter your ingredient and press enter to add it to your list: <input id="ingredinput" type="text" onkeypress="enterIngred(event, this.value)">
   </div>
   <!-- <div id="search">
     <form>Search ingredient: <input type="text" onkeyup="searchIngredient(this.value)" placeholder="name"></form>
     <span id="suggestions">Suggestions pop up here.</span>
   </div> -->
-  <form>Max number of missing ingredients: <input id="tolerance" type="text" placeholder="0"></form>
+  <div>
+    Max number of missing ingredients: <input id="tolerance" type="text" placeholder="0">
+  </div>
+  <button id="searchButton" onclick="executeSearch()" disabled>Find Recipe</button>
   <script src="{% static 'scripts/home_page.js' %}"></script>
 {% endblock content %}

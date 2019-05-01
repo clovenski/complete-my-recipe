@@ -18,6 +18,10 @@ th, td {
     background-color: lightblue;
 }
 
+.recipe:hover {
+    background-color: lightskyblue;
+}
+
 .pagination {
     text-align: center;
     padding: 15px;

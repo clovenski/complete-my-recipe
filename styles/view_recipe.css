@@ -16,3 +16,7 @@
     margin: 10px;
     border: 1px solid black;
 }
+
+.link:hover {
+    background-color: lightskyblue;
+}
