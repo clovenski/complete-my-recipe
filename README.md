@@ -4,32 +4,14 @@ Project for CS 4800 - Software Engineering
 
 Enter the spare ingredients you have in your pantry and receive a list of recipes that include those ingredients and the additional ingredients you need to complete the recipe.
 
-Check it out at [completemyrecipe.pythonanywhere.com](http://completemyrecipe.pythonanywhere.com)
+The project was deployed to pythonanywhere.com, and was live for a few months. Below are some screenshots of the web application at the time it was active.
 
-## To-Do
+## Examples
 
-- [ ] Come up with a list of common ingredients (chicken, bread, onion, etc.)
-- [ ] Automate the posting of key ingredient names into database
-- [ ] Fill database with common ingredient names and uncomment the "search ingredient" feature
+![Alt text](examples/ex_1.jpg)
 
-## Notes
+![Alt text](examples/ex_2.jpg)
 
-Backend API documentation can be found [here](notes/backend/README.md)
+![Alt text](examples/ex_3.jpg)
 
-Diagrams we made to practice software engineering can be found in the notes directory.
-
-## SCRUM
-
-Link to SCRUM backlog [here](https://tree.taiga.io/project/sjmarrero-completemyrecipe-1/kanban) 
-      
-## Extra Features Ideas
-
-- Include the ability to EXCLUDE ingredients from search results
-- Cusine Options
-- Meat Option (i.e. Beef, Chicken, Pork, Fish, Seafood, Vegetarian, Vegan)
-- Ability to order search results by the following:
-  - Meat Option
-  - Amounts of required ingredients (Lowest - Highest)
-- "Favority" section for recipes you have "Favorited"
-- Recent Recipes section
-- Ability to review, edit, and reuse saved searches
+![Alt text](examples/ex_4.jpg)
